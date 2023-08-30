@@ -16,6 +16,15 @@ def select_pdf_file():
     return file_path
 
 
+def select_output_file():
+    root = Tk()
+    root.withdraw()  # Hide the main window
+
+    file_path = filedialog.asksaveasfilename(
+        defaultextension=".docx", filetypes=[("DOCX files", "*.docx")])
+    return file_path
+
+
 def main():
     pdf_file = select_pdf_file()
 
@@ -23,7 +32,11 @@ def main():
         print("No PDF file selected.")
         return
 
-    docx_file = "output.docx"  # Replace with the desired DOCX output file path
+    docx_file = select_output_file()
+
+    if not docx_file:
+        print("No output DOCX file selected.")
+        return
 
     pdf_to_docx(pdf_file, docx_file)
     print("Conversion complete!")
